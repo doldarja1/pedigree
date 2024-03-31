@@ -84,6 +84,7 @@
         </button>
       </div>
       <MilitaryForm
+        ref="militaryForm"
         :value="military"
         class="custom-form__input"
         @change="(military) => setMilitaryForm(military, index)"
@@ -107,6 +108,7 @@
         </button>
       </div>
       <WeddingForm
+        ref="weddingForm"
         :value="wedding" :persons="partners"
         class="custom-form__input"
         @change="(wedding) => setWeddingForm(wedding, index)"
@@ -130,6 +132,7 @@
         </button>
       </div>
       <EducationForm
+        ref="educationForm"
         :value="education"
         class="custom-form__input"
         @change="(education) => setEducationForm(education, index)"
@@ -153,6 +156,7 @@
         </button>
       </div>
       <WorkForm
+        ref="workForm"
         :value="work"
         class="custom-form__input"
         @change="(work) => setWorkForm(work, index)"
@@ -176,6 +180,7 @@
         </button>
       </div>
       <ChildForm
+        ref="childForm"
         :value="child" :persons="children"
         class="custom-form__input"
         @change="(child) => setChildForm(child, index)"
@@ -354,6 +359,77 @@ export default {
         ...param
       })
     },
+  checkEmptyForms() {
+   const milForms = this.$refs.militaryForm;
+   const eduForms = this.$refs.educationForm;
+   const wedForms = this.$refs.weddingForm;
+   const workForms = this.$refs.wedForm;
+   const childForms = this.$refs.childForm;
+   
+   const emptyForms = [];
+   
+   if (milForms) {
+     milForms.forEach((i) => {
+       if (i.validateMil) {
+         i.validateMil();
+         if (!i.value) {
+           emptyForms.push("Служба");
+         }
+       }
+     });
+   }
+   
+   if (eduForms) {
+     eduForms.forEach((i) => {
+       if (i.validateEdu) {
+         i.validateEdu();
+         if (!i.value) {
+           emptyForms.push("Образование");
+         }
+       }
+     });
+   }
+   
+   if (wedForms) {
+     wedForms.forEach((i) => {
+       if (i.validateWed) {
+         i.validateWed();
+         if (!i.value) {
+           emptyForms.push("Свадьба");
+         }
+       }
+     });
+   }
+   
+   if (workForms) {
+     workForms.forEach((i) => {
+       if (i.validateWork) {
+         i.validateWork();
+         if (!i.value) {
+           emptyForms.push("Работа");
+         }
+       }
+     });
+   }
+   
+   if (childForms) {
+     childForms.forEach((i) => {
+       if (i.validateChild) {
+         i.validateChild();
+         if (!i.value) {
+           emptyForms.push("Дети");
+         }
+       }
+     });
+   }
+   
+   if (emptyForms.length > 0) {
+     const errorMessage = `Следующие формы пустые: ${emptyForms.join(', ')}`;
+     console.log(errorMessage);
+   } else {
+     this.createPerson();
+   }
+   },     
     setMilitaryForm(updatedMilitary, index) {
       const newValue = { ...this.value }
       newValue.militaries[index] = updatedMilitary

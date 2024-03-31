@@ -136,6 +136,9 @@ export default {
     },
     selectHint(hint) {
       this.type = hint
+    },
+    validateEdu () {
+      console.log(this.value);
     }
   }
 }

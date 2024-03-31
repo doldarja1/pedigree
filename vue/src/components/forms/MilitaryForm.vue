@@ -100,6 +100,9 @@ export default {
         ...this.value,
         ...param
       })
+    },
+    validateMil () {
+      console.log(this.value);
     }
   }
 }

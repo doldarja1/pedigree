@@ -1,7 +1,7 @@
 <template>
   <PageLayout>
     <section class="p-16">
-      <PersonForm v-model="form" />
+      <PersonForm v-model="form" ref="personForm" />
       <SimpleButton 
         class ="person-page__btn" 
         type="primary" 
@@ -49,10 +49,13 @@ export default {
       'addPerson'
     ]),
     createPerson () {
-      this.addPerson(this.form)
-        .then((person) => {
-          this.$router.push({ name: this.$routes.PERSON, params: { id: person.id } })
-        })
+      this.addPerson(this.form).then((person) => {
+        const isEmpty = this.$refs.personForm.checkEmptyForms();
+        if (!isEmpty) {
+          return;
+        }
+        this.$router.push({ name: "PERSON", params: { id: person.id } });
+      });
     },
     cancel () {
       this.goBack()

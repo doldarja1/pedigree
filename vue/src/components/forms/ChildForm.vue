@@ -49,6 +49,9 @@ export default {
         ...this.value,
         ...param
       })
+    },
+    validateChild () {
+      console.log(this.value);
     }
   }
 }

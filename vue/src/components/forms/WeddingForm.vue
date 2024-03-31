@@ -81,6 +81,9 @@ export default {
         ...this.value,
         ...param
       })
+    },
+    validateWed () {
+      console.log(this.value);
     }
   }
 }

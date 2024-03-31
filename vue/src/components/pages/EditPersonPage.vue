@@ -1,7 +1,7 @@
 <template>
   <PageLayout>
     <section class="p-16">
-      <PersonForm v-model="form" />
+      <PersonForm v-model="form" ref="personForm" />
       <SimpleButton 
         class ="person-page__btn" 
         type="primary" 
@@ -72,8 +72,12 @@ export default {
       'editPerson'
     ]),
     editPersonHandler () {
-      this.editPerson(this.form)
-      this.goBack()
+      const isEmptyH = this.$refs.personForm.checkEmptyForms();
+      if (!isEmptyH) {
+        return;
+      }
+      this.editPerson(this.form);
+      this.goBack();
     },
     cancel () {
       this.goBack()

@@ -359,77 +359,32 @@ export default {
         ...param
       })
     },
-  checkEmptyForms() {
-   const milForms = this.$refs.militaryForm;
-   const eduForms = this.$refs.educationForm;
-   const wedForms = this.$refs.weddingForm;
-   const workForms = this.$refs.wedForm;
-   const childForms = this.$refs.childForm;
-   
-   const emptyForms = [];
-   
-   if (milForms) {
-     milForms.forEach((i) => {
-       if (i.validateMil) {
-         i.validateMil();
-         if (!i.value) {
-           emptyForms.push("Служба");
-         }
-       }
-     });
-   }
-   
-   if (eduForms) {
-     eduForms.forEach((i) => {
-       if (i.validateEdu) {
-         i.validateEdu();
-         if (!i.value) {
-           emptyForms.push("Образование");
-         }
-       }
-     });
-   }
-   
-   if (wedForms) {
-     wedForms.forEach((i) => {
-       if (i.validateWed) {
-         i.validateWed();
-         if (!i.value) {
-           emptyForms.push("Свадьба");
-         }
-       }
-     });
-   }
-   
-   if (workForms) {
-     workForms.forEach((i) => {
-       if (i.validateWork) {
-         i.validateWork();
-         if (!i.value) {
-           emptyForms.push("Работа");
-         }
-       }
-     });
-   }
-   
-   if (childForms) {
-     childForms.forEach((i) => {
-       if (i.validateChild) {
-         i.validateChild();
-         if (!i.value) {
-           emptyForms.push("Дети");
-         }
-       }
-     });
-   }
-   
-   if (emptyForms.length > 0) {
-     const errorMessage = `Следующие формы пустые: ${emptyForms.join(', ')}`;
-     console.log(errorMessage);
-   } else {
-     this.createPerson();
-   }
-   },     
+    checkEmptyForms() {
+      const forms = [
+        { ref: this.$refs.militaryForm, name: "Служба", validate: "validateMil" },
+        { ref: this.$refs.educationForm, name: "Образование", validate: "validateEdu" },
+        { ref: this.$refs.weddingForm, name: "Свадьба", validate: "validateWed" },
+        { ref: this.$refs.wedForm, name: "Работа", validate: "validateWork" },
+        { ref: this.$refs.childForm, name: "Дети", validate: "validateChild" }
+      ];
+      const emptyForms = [];
+      forms.forEach((form) => {
+        if (form.ref) {
+          form.ref.forEach((i) => {
+            if (i[form.validate]) {
+              i[form.validate]();
+              if (!i.value) {
+                emptyForms.push(form.name);
+              }
+            }
+          });
+        }
+      });
+      if (emptyForms.length > 0) {
+        const errorMessage = `Следующие формы пустые: ${emptyForms.join(', ')}`;
+        console.log(errorMessage);
+      } 
+    },   
     setMilitaryForm(updatedMilitary, index) {
       const newValue = { ...this.value }
       newValue.militaries[index] = updatedMilitary

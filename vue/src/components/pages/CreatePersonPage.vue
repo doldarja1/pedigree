@@ -48,12 +48,12 @@ export default {
     ...mapActions('persons', [
       'addPerson'
     ]),
-    createPerson () {
+    createPerson() {
+      const isEmpty = this.$refs.personForm.checkEmptyForms();
+      if (!isEmpty) {
+        return;
+      }
       this.addPerson(this.form).then((person) => {
-        const isEmpty = this.$refs.personForm.checkEmptyForms();
-        if (!isEmpty) {
-          return;
-        }
         this.$router.push({ name: "PERSON", params: { id: person.id } });
       });
     },

@@ -82,7 +82,7 @@ export default {
         ...param
       })
     },
-    validateWed () {
+    validate () {
       console.log(this.value);
     }
   }

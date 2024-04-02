@@ -361,29 +361,18 @@ export default {
     },
     checkEmptyForms() {
       const forms = [
-        { ref: this.$refs.militaryForm, name: "Служба", validate: "validateMil" },
-        { ref: this.$refs.educationForm, name: "Образование", validate: "validateEdu" },
-        { ref: this.$refs.weddingForm, name: "Свадьба", validate: "validateWed" },
-        { ref: this.$refs.wedForm, name: "Работа", validate: "validateWork" },
-        { ref: this.$refs.childForm, name: "Дети", validate: "validateChild" }
-      ];
-      const emptyForms = [];
-      forms.forEach((form) => {
-        if (form.ref) {
-          form.ref.forEach((i) => {
-            if (i[form.validate]) {
-              i[form.validate]();
-              if (!i.value) {
-                emptyForms.push(form.name);
-              }
-            }
-          });
+        ...this.$refs.militaryForm,
+        ...this.$refs.educationForm,
+        ...this.$refs.childForm,
+        ...this.$refs.weddingForm,
+        ...this.$refs.workForm
+      ]
+      forms.forEach(i => {
+        const r = i.validate()
+        if (r) {
+          console.error('Ошибка в форме:', i);
         }
-      });
-      if (emptyForms.length > 0) {
-        const errorMessage = `Следующие формы пустые: ${emptyForms.join(', ')}`;
-        console.log(errorMessage);
-      } 
+      })
     },   
     setMilitaryForm(updatedMilitary, index) {
       const newValue = { ...this.value }

@@ -101,7 +101,7 @@ export default {
         ...param
       })
     },
-    validateMil () {
+    validate () {
       console.log(this.value);
     }
   }

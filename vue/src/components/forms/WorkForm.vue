@@ -117,7 +117,7 @@ export default {
         ...param
       })
     },
-    validateWork () {
+    validate () {
       console.log(this.value);
     }
   }

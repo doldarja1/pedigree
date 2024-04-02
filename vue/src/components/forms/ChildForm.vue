@@ -50,7 +50,7 @@ export default {
         ...param
       })
     },
-    validateChild () {
+    validate () {
       console.log(this.value);
     }
   }

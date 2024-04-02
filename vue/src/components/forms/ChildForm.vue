@@ -51,7 +51,10 @@ export default {
       })
     },
     validate () {
-      console.log(this.value);
+      if (!this.child) {
+        return 'Необходимо выбрать ребенка.';
+      }
+      return null;
     }
   }
 }

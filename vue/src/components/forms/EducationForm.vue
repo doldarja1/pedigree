@@ -138,7 +138,25 @@ export default {
       this.type = hint
     },
     validate () {
-      console.log(this.value);
+      if (!this.type) {
+        return 'Необходимо указать тип.';
+      }
+      if (!this.level) {
+        return 'Необходимо указать уровень.';
+      }
+      if (!this.startDate) {
+        return 'Необходимо указать дату начала обучения.';
+      }
+      if (!this.endDate) {
+        return 'Необходимо указать дату завершения обучения.';
+      }
+      if (!this.name) {
+        return 'Необходимо указать название учреждения.';
+      }
+      if (!this.city) {
+        return 'Необходимо указать город учреждения.';
+      }
+      return null;
     }
   }
 }

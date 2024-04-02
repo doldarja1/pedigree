@@ -102,7 +102,22 @@ export default {
       })
     },
     validate () {
-      console.log(this.value);
+      if (!this.type) {
+        return 'Необходимо указать тип.';
+      }
+      if (!this.rank) {
+        return 'Необходимо указать звание, должность.';
+      }
+      if (!this.startDate) {
+        return 'Необходимо указать дату начала службы.';
+      }
+      if (!this.endDate) {
+        return 'Необходимо указать дату конца службы.';
+      }
+      if (!this.description) {
+        return 'Необходимо указать описание.';
+      }
+      return null;
     }
   }
 }

@@ -118,7 +118,25 @@ export default {
       })
     },
     validate () {
-      console.log(this.value);
+      if (!this.place) {
+        return 'Необходимо указать страну, город.';
+      }
+      if (!this.organization) {
+        return 'Необходимо указать организацию.';
+      }
+      if (!this.startDate) {
+        return 'Необходимо указать дату начала работы.';
+      }
+      if (!this.endDate) {
+        return 'Необходимо указать дату завершения работы.';
+      }
+      if (!this.position) {
+        return 'Необходимо указать должность.';
+      }
+      if (!this.description) {
+        return 'Необходимо указать описание.';
+      }
+      return null;
     }
   }
 }

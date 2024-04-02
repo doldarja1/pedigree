@@ -83,7 +83,16 @@ export default {
       })
     },
     validate () {
-      console.log(this.value);
+      if (!this.partnerId) {
+        return 'Необходимо выбрать партнёра.';
+      }
+      if (!this.startDate) {
+        return 'Необходимо указать дату свадьбы.';
+      }
+      if (!this.endDate) {
+        return 'Необходимо указать дату развода.';
+      }
+      return null;
     }
   }
 }

@@ -507,8 +507,9 @@ export default {
         const r = i.validate()
         if (r) {
           this.$notify({
-          message: r
-        });
+            message: 'Ошибка: ' + r,
+            type: 'error'
+          });
         }
       })
     },   

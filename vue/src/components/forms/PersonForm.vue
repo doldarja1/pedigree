@@ -506,7 +506,9 @@ export default {
       forms.forEach(i => {
         const r = i.validate()
         if (r) {
-          console.error('Ошибка в форме:', i);
+          this.$notify({
+          message: r
+        });
         }
       })
     },   

@@ -52,7 +52,7 @@ export default {
     },
     validate () {
       if (!this.child) {
-        return 'Необходимо выбрать ребенка.';
+        return 'Необходимо заполнить поле формы детей.';
       }
       return null;
     }

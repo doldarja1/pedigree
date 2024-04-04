@@ -143,23 +143,8 @@ export default {
       })
     },
     validate () {
-      if (!this.place) {
-        return 'Необходимо указать страну, город.';
-      }
-      if (!this.organization) {
-        return 'Необходимо указать организацию.';
-      }
-      if (!this.startDate) {
-        return 'Необходимо указать дату начала работы.';
-      }
-      if (!this.endDate) {
-        return 'Необходимо указать дату завершения работы.';
-      }
-      if (!this.position) {
-        return 'Необходимо указать должность.';
-      }
-      if (!this.description) {
-        return 'Необходимо указать описание.';
+      if (!this.place && !this.organization && !this.startDate && !this.endDate && !this.position && !this.description) {
+        return 'Необходимо заполнить все поля формы работы.';
       }
       return null;
     }

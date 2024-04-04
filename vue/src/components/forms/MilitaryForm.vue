@@ -127,21 +127,9 @@ export default {
       })
     },
     validate () {
-      if (!this.type) {
-        return 'Необходимо указать тип.';
-      }
-      if (!this.rank) {
-        return 'Необходимо указать звание, должность.';
-      }
-      if (!this.startDate) {
-        return 'Необходимо указать дату начала службы.';
-      }
-      if (!this.endDate) {
-        return 'Необходимо указать дату конца службы.';
-      }
-      if (!this.description) {
-        return 'Необходимо указать описание.';
-      }
+      if (!this.type && !this.rank && !this.startDate && !this.endDate && !this.description) {
+         return 'Необходимо заполнить все поля военной формы.';
+       }
       return null;
     }
   }

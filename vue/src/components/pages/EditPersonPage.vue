@@ -77,7 +77,7 @@ export default {
         return;
       }
       this.editPerson(this.form);
-      this.goBack();
+      this.$router.push({ name: "PERSON"});
     },
     cancel () {
       this.goBack()

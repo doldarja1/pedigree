@@ -109,14 +109,8 @@ export default {
       })
     },
     validate () {
-      if (!this.partnerId) {
-        return 'Необходимо выбрать партнёра.';
-      }
-      if (!this.startDate) {
-        return 'Необходимо указать дату свадьбы.';
-      }
-      if (!this.endDate) {
-        return 'Необходимо указать дату развода.';
+      if (!this.partnerId && !this.startDate && !this.endDate) {
+        return 'Необходимо заполнить все поля формы свадьбы.';
       }
       return null;
       },

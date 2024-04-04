@@ -33,7 +33,7 @@ export default {
   methods: {
     formatDate(date) {
       // Функция для форматирования даты, если необходимо
-      return date;
+      return date
     }
   }
 }
@@ -42,14 +42,14 @@ export default {
 <style scoped lang="less">
 @base-color: #333;
 @light-color: #666;
-@background-color: #fff;
 @font-family: 'Inter', sans-serif;
 
 .education-card {
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
-  background-color: @background-color;
+  min-width: 200;
+  border-radius: 24px;
+  background-color: #f5f5f5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   padding: 15px;
@@ -73,7 +73,6 @@ export default {
   &__body {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
 
   &__detail {
@@ -85,4 +84,4 @@ export default {
     font-weight: 600;
   }
 }
-</style>
+</style> 

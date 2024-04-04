@@ -19,6 +19,7 @@
       format="dd.MM.yyyy"
       value-format="dd.MM.yyyy"
       placeholder="Дата начала"
+      :picker-options="startPickerOptions"
     />
     <ElDatePicker
       v-model="endDate"
@@ -27,6 +28,7 @@
       format="dd.MM.yyyy"
       value-format="dd.MM.yyyy"
       placeholder="Дата завершения"
+      :picker-options="endPickerOptions"
     />
     <div class="custom-form__full-width">
       <ElInput
@@ -48,6 +50,8 @@
 </template>
 
 <script>
+import { parseDateString } from '@/services/datePickerOptions'
+
 export default {
   name: 'WorkForm',
   model: {
@@ -108,9 +112,30 @@ export default {
       set(value) {
         this.emitChange({ description: value })
       }
+    },
+    startPickerOptions () {
+      return {
+        disabledDate: time => {
+          if (this.endDate) {
+            const endDate = this.parseDateString(this.endDate)
+            return endDate && time.getTime() > endDate.getTime()
+          }
+        }
+      }
+    },
+    endPickerOptions () {
+      return {
+        disabledDate: time => {
+          if (this.startDate) {
+            const startDate = this.parseDateString(this.startDate)
+            return startDate && time.getTime() < startDate.getTime()
+          }
+        }
+      }
     }
   },
   methods: {
+    parseDateString,
     emitChange (param) {
       this.$emit('change', {
         ...this.value,

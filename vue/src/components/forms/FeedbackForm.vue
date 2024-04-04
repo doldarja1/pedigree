@@ -49,7 +49,7 @@ export default {
   components: {
     SimpleButton
   },
-  data() {
+  data () {
     return {
       fullName: null,
       phoneNumber: null,
@@ -68,16 +68,16 @@ export default {
     }
   },
   computed: {
-    isFullNameInvalid() {
+    isFullNameInvalid () {
       return !this.fullName || !/^[а-яё]*$/i.test(this.fullName)
     },
-    isPhoneNumberInvalid() {
+    isPhoneNumberInvalid () {
       return !this.phoneNumber || !/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/i.test(this.phoneNumber)
     },
-    isMailInvalid() {
+    isMailInvalid () {
       return !this.mail || !/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(this.mail)
     },
-    isMessageInvalid() {
+    isMessageInvalid () {
       return !this.message
     },
     isFormInvalid () {
@@ -85,10 +85,10 @@ export default {
     }
   },
   methods: {
-    takeForm() {
+    takeForm () {
       if (this.isFormInvalid) {
         this.handleInvalidForm()
-        return
+        return ''
       }
       const fullForm = {
         fullName: this.fullName,
@@ -120,6 +120,7 @@ export default {
     flex-direction: column;
   }
 } 
+
 .invalid {
   border: solid 1px red;
   border-radius: 5px;

@@ -17,8 +17,8 @@
 
 <script>
 import PhotoPreview from '../ui/PhotoPreview.vue'
-import { mapGetters } from 'vuex';
-import { maskFio, maskDatetime, defaultImage} from '@/utils/mask';
+import { mapGetters } from 'vuex'
+import { maskFio, maskDatetime, defaultImage} from '@/utils/mask'
 
 export default {
   name: 'PersonPreviewCard',
@@ -33,55 +33,58 @@ export default {
   },
   computed: {
     ...mapGetters('settings', ['getAccess']),
-    birthDate() {
-      if (!this.person.birthDate){
+    birthDate () {
+      if (!this.person.birthDate) {
         return null
       }
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.birthDate
       }
       return maskDatetime(this.person.birthDate)
     },
     dieDate () {
-      if (!this.person.dieDate){
+      if (!this.person.dieDate) {
         return null
       }
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.dieDate
       }
       return maskDatetime(this.person.dieDate)
     },
     firstName () {
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.firstName 
       }
       return maskFio(this.person.firstName)
     },
     genderClass () {
-      return `person-preview-card__status-indicator__${this.person.gender.toLowerCase()}`
+      if (this.person.gender) {
+        return `person-preview-card__status-indicator__${this.person.gender.toLowerCase()}`
+      }
+      return ''
     },
-    patronymicName (){
-      if (!this.needHide){
+    patronymicName () {
+      if (!this.needHide) {
         return this.person.patronymicName
       }
       return maskFio(this.person.patronymicName)
     },
-    photo(){
-      if (!this.needHide){
+    photo (){
+      if (!this.needHide) {
         return this.person.photo
       }
       return defaultImage
     },
-    needHide(){
+    needHide () {
       return this.person.access && this.getAccess
     },
     secondName () {
-      if (!this.needHide){
+      if (!this.needHide) {
         return this.person.secondName 
       }
       return maskFio(this.person.secondName)
-    },
-  },
+    }
+  }
 }
 </script>
 

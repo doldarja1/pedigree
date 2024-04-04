@@ -11,6 +11,7 @@ export interface Person {
   secondName: string; // Фамилия
   firstName: string; // Имя
   patronymicName: string; // Отчество
+  maidenName: string; // Девичья фамилия
   birthDate: DateString; // Дата рождения
   dieDate: DateString; // Дата смерти
   gender: GENDER | null; // Пол
@@ -23,6 +24,7 @@ export interface Person {
   works: Work[]; // Работы
   militaries: Military[]; // Военная служба
   access: boolean | null;
+  removed: boolean | null;
 }
 
 export interface Education {

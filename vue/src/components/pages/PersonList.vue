@@ -7,6 +7,19 @@
         placeholder="Поиск"
         clearable
       />
+      <ElSelect
+        v-model="filterRemovedData"
+        class="custom-form__input"
+        placeholder="Показать всех">
+        <ElOption
+          label="Показать всех"
+          value=false
+        />
+        <ElOption
+          label="Показать доступных"
+          value=true
+        />
+      </ElSelect>
       <div
         v-if="persons && persons.length > 0"
         class="person-container__wrapper"
@@ -41,6 +54,7 @@ export default {
   data () {
     return {
       search: '',
+      filterRemoved: false
     }
   },
   computed: {
@@ -48,18 +62,30 @@ export default {
       'getAllPersons',
       'filteredPersons'
     ]),
+    filterRemovedData: {
+      get () {
+        return this.filterRemoved.toString()
+      },
+      set (value) {
+        this.filterRemoved = value == true
+      }
+    },
     fields () {
       return ['id', 'firstName', 'secondName', 'patronymicName', 'birthDate']
     },
     persons () {
-      if (this.search.length >= 3) {
-        return this.filteredPersons(this.searchFunc)
-      }
-      return this.getAllPersons
+      return this
+        .filteredPersons((person) => {
+            return !this.filterRemoved || !person.removed
+        })
+        .filter(this.searchFunc)
     },
   },
   methods: {
     searchFunc (person) {
+      if (this.search.length < 3){
+        return true
+      }
       return this.fields.some((field) => {
         if (person[field]) {
           return person[field].toString().toLowerCase().includes(this.search.toLowerCase())

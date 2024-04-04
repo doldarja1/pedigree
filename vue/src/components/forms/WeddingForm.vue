@@ -9,7 +9,7 @@
       <ElOption
         v-for="person in persons"
         :key="person.id"
-        :label="person.name"
+        :label="fullName(person)"
         :value="person.id"
       />
     </ElSelect>
@@ -20,6 +20,7 @@
       format="dd.MM.yyyy"
       value-format="dd.MM.yyyy"
       placeholder="Дата свадьбы"
+      :picker-options="startPickerOptions"
     />
     <ElDatePicker
       v-model="endDate"
@@ -28,11 +29,15 @@
       format="dd.MM.yyyy"
       value-format="dd.MM.yyyy"
       placeholder="Дата развода"
+      :picker-options="endPickerOptions"
     />
   </div>
 </template>
 
 <script>
+import { formatPersonName } from '@/services/formatPersonName'
+import { parseDateString } from '@/services/datePickerOptions'
+
 export default {
   name: 'WeddingForm',
   model: {
@@ -73,9 +78,30 @@ export default {
       set (value) {
         this.emitFormData({ endDate: value })
       }
+    },
+    startPickerOptions () {
+      return {
+        disabledDate: time => {
+          if (this.endDate) {
+            const endDate = this.parseDateString(this.endDate)
+            return endDate && time.getTime() > endDate.getTime()
+          }
+        }
+      }
+    },
+    endPickerOptions () {
+      return {
+        disabledDate: time => {
+          if (this.startDate) {
+            const startDate = this.parseDateString(this.startDate)
+            return startDate && time.getTime() < startDate.getTime()
+          }
+        }
+      }
     }
   },
   methods: {
+    parseDateString,
     emitFormData (param) {
       this.$emit('change', {
         ...this.value,
@@ -93,6 +119,12 @@ export default {
         return 'Необходимо указать дату развода.';
       }
       return null;
+      },
+    fullName (partner) {
+      if (partner) {
+        return formatPersonName(partner, { short: false, access: this.needHide })
+      }
+      return ''
     }
   }
 }

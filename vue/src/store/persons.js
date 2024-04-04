@@ -35,6 +35,7 @@ export default {
     getAllPersons: (state) => state.persons,
     getPersonById: (state) => (id) => state.persons.find((person) => person.id === id),
     filteredPersons: (state) => (filterFunction) => state.persons.filter(filterFunction),
+    getAvailablePersons: (state) => state.persons.filter((person) => !person.removed),
     getPersonsByIds: (state) => (ids) => state.persons.filter(person => ids.includes(person.id)),
     getCenter: (state) => state.center
   },
